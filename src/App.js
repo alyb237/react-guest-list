@@ -89,7 +89,7 @@ function App() {
     <h2>Loading...</h2>
   ) : (
     <div>
-      <form>
+      <form name="form">
         <label>
           First name
           <br />
@@ -117,8 +117,8 @@ function App() {
                 event.preventDefault();
                 setIsLoading(true);
                 setRefetch(!refetch);
-                setFirst('');
-                setLast('');
+                // setFirst('');
+                // setLast('');
 
                 createUser(first, last).catch(() => {
                   console.log('fetch fails');
