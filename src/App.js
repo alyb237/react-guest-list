@@ -9,7 +9,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [refetch, setRefetch] = useState(true);
 
-  const baseUrl = 'http://localhost:4000';
+  const baseUrl = 'https://react-guest-list-heroku.herokuapp.com';
 
   // Creates array and fetches data
   useEffect(() => {
