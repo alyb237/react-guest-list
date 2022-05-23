@@ -5,15 +5,14 @@ function App() {
   const [first, setFirst] = useState();
   const [last, setLast] = useState();
   const [guest, setGuest] = useState([]);
-  const [isAttending, setIsAttending] = useState(false);
+  // const [attending, setAttending] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [refetch, setRefetch] = useState(true);
 
   const baseUrl = 'http://localhost:4000';
 
   // Creates array and fetches data
   useEffect(() => {
-    // console.log('trigger on first render');
-
     const fetchGuests = async () => {
       const response = await fetch(`${baseUrl}/guests`);
 
@@ -21,15 +20,18 @@ function App() {
         throw new Error('Data could not be fetched!');
       } else {
         const guestsData = await response.json();
-        console.log(guestsData);
+        // console.log(guestsData);
         setGuest(guestsData);
+        // setAttending(!attending);
         setIsLoading(false);
       }
-      fetchGuests().catch(() => {
-        console.log('fetch fails');
-      });
     };
-  }, []);
+    fetchGuests().catch(() => {
+      console.log('fetch fails');
+    });
+  }, [refetch]);
+
+  const disabled = isLoading ? true : false;
 
   // POST function - Add user - send data to server
   async function createUser(firstName, lastName) {
@@ -48,19 +50,39 @@ function App() {
     setFirst('');
     setLast('');
     setGuest((add) => [...add, createdGuest]);
-    setIsAttending(true);
-    // console.log(guest);
   }
 
+  // Update attendance
+  async function updateAttendance(id, event) {
+    const response = await fetch(`${baseUrl}/guests/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ attending: event }),
+    });
+    const updateGuestList = await response.json();
+    setRefetch(!refetch);
+    // console.log(updateGuestList);
+    console.log(JSON.stringify({ updateGuestList }));
+    // setAttending(attending);
+    // console.log(attending);
+  }
+
+  // Delete guest
   async function deleteGuest(id) {
     const response = await fetch(`${baseUrl}/guests/${id}`, {
       method: 'DELETE',
     });
     const deleteAGuest = await response.json();
-    console.log(deleteAGuest);
-    setIsAttending(!isAttending);
+    // console.log(deleteAGuest);
+    setRefetch(!refetch);
+    // setAttending(!attending);
     setGuest(() => guest.filter((guests) => guests.id !== id));
-    console.log(setGuest);
+    // console.log(setGuest);
+  }
+  if (isLoading) {
+    return <h2>loading...</h2>;
   }
 
   return (
@@ -73,6 +95,7 @@ function App() {
           onChange={(event) => {
             setFirst(event.currentTarget.value);
           }}
+          disabled={disabled}
         />
       </label>
       <label>
@@ -86,12 +109,15 @@ function App() {
           }}
           onKeyPress={(event) => {
             setLast(event.currentTarget.value);
-            if (event.key === 'enter') {
+            if (event.key === 'Enter') {
+              setIsLoading(true);
+              setRefetch(!refetch);
               createUser(first, last).catch(() => {
                 console.log('fetch fails');
               });
             }
           }}
+          disabled={disabled}
         />
       </label>
       <br />
@@ -104,6 +130,7 @@ function App() {
       >
         Add guest
       </button>
+
       <div data-test-id="guest">
         <ul>
           {guest.map((guests) => {
@@ -111,16 +138,31 @@ function App() {
               <div key={guests.id}>
                 <li>
                   {guests.firstName} {guests.lastName}
-                  <input
-                    type="checkbox"
-                    checked={guests.isAttending}
-                    onChange={(event) => {
-                      setIsAttending(event.currentTarget.checked);
-                    }}
-                  />{' '}
-                  {isAttending ? '😺' : '⛔'}
-                  <button onClick={() => deleteGuest(guests.id)}>
-                    Remove guest
+                  <label>
+                    <p> Attending ? </p>
+                    <input
+                      aria-label="attending"
+                      type="checkbox"
+                      checked={guests.attending}
+                      onChange={(event) => {
+                        const guestTarget = event.currentTarget.checked;
+                        // console.log(guests.attending);
+                        guests.attending = true;
+                        console.log(guests.attending);
+
+                        updateAttendance(guests.id, guestTarget).catch(() => {
+                          console.log('error on updating attendance');
+                        });
+                      }}
+                    />
+                    {guests.attending ? '✔' : '⛔'}
+                  </label>
+                  <br />
+                  <button
+                    onClick={() => deleteGuest(guests.id)}
+                    aria-label={`Remove ${guests.firstName} ${guests.lastName}`}
+                  >
+                    Remove
                   </button>
                 </li>
               </div>
