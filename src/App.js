@@ -161,9 +161,12 @@ function App() {
                     />
                     {guests.attending ? '✔' : '⛔'}
                   </label>
-                  <br />
-                  Remove
-                  <button onClick={() => deleteGuest(guests.id)}>Remove</button>
+                  <button
+                    aria-label="Remove"
+                    onClick={() => deleteGuest(guests.id)}
+                  >
+                    Good-Bye
+                  </button>
                 </li>
               </div>
             );
