@@ -114,6 +114,8 @@ function App() {
             if (event.key === 'Enter') {
               setIsLoading(true);
               setRefetch(!refetch);
+              setFirst('');
+              setLast('');
               createUser(first, last).catch(() => {
                 console.log('fetch fails');
               });
