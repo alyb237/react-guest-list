@@ -90,10 +90,11 @@ function App() {
   ) : (
     <div>
       <form name="form">
-        <label>
+        <label htmlFor="first-name">
           First name
           <br />
           <input
+            name="first-name"
             value={first}
             onChange={(event) => {
               setFirst(event.currentTarget.value);
@@ -101,15 +102,15 @@ function App() {
             disabled={disabled}
           />
         </label>
-        <label>
+        <label htmlFor="last-name">
           <br />
           Last name
           <br />
           <input
+            name="last-name"
             value={last}
             onChange={(event) => {
               setLast(event.currentTarget.value);
-              event.preventDefault();
             }}
             onKeyPress={(event) => {
               // setLast(event.currentTarget.value);
@@ -117,8 +118,8 @@ function App() {
                 event.preventDefault();
                 setIsLoading(true);
                 setRefetch(!refetch);
-                // setFirst('');
-                // setLast('');
+                setFirst('');
+                setLast('');
 
                 createUser(first, last).catch(() => {
                   console.log('fetch fails');
