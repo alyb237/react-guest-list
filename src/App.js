@@ -89,42 +89,47 @@ function App() {
     <h2>Loading...</h2>
   ) : (
     <div>
-      <label>
-        First name
-        <br />
-        <input
-          value={first}
-          onChange={(event) => {
-            setFirst(event.currentTarget.value);
-          }}
-          disabled={disabled}
-        />
-      </label>
-      <label>
-        <br />
-        Last name
-        <br />
-        <input
-          value={last}
-          onChange={(event) => {
-            setLast(event.currentTarget.value);
-          }}
-          onKeyPress={(event) => {
-            // setLast(event.currentTarget.value);
-            if (event.key === 'Enter') {
-              setIsLoading(true);
-              setRefetch(!refetch);
-              setFirst(' ');
-              setLast(' ');
-              createUser(first, last).catch(() => {
-                console.log('fetch fails');
-              });
-            }
-          }}
-          disabled={disabled}
-        />
-      </label>
+      <form>
+        <label>
+          First name
+          <br />
+          <input
+            value={first}
+            onChange={(event) => {
+              setFirst(event.currentTarget.value);
+            }}
+            disabled={disabled}
+          />
+        </label>
+        <label>
+          <br />
+          Last name
+          <br />
+          <input
+            value={last}
+            onChange={(event) => {
+              setLast(event.currentTarget.value);
+              event.preventDefault();
+            }}
+            onKeyPress={(event) => {
+              // setLast(event.currentTarget.value);
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                setIsLoading(true);
+                setRefetch(!refetch);
+                setFirst('');
+                setLast('');
 
+                createUser(first, last).catch(() => {
+                  console.log('fetch fails');
+                });
+                document.form.reset();
+              }
+            }}
+            disabled={disabled}
+          />
+        </label>
+      </form>
       <br />
       {/* <button
         onClick={() => {
