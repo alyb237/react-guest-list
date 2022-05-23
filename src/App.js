@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 function App() {
   const [first, setFirst] = useState();
@@ -8,6 +8,9 @@ function App() {
   // const [attending, setAttending] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [refetch, setRefetch] = useState(true);
+
+  const inputFirstName = useRef(null);
+  const inputLastName = useRef(null);
 
   const baseUrl = 'https://react-guest-list-heroku.herokuapp.com';
 
@@ -47,7 +50,10 @@ function App() {
     });
     const createdGuest = await response.json();
     // console.log(createdGuest);
+
+    inputFirstName.current.value = '';
     setFirst('');
+    inputLastName.current.value = '';
     setLast('');
     setGuest((add) => [...add, createdGuest]);
   }
@@ -94,6 +100,7 @@ function App() {
         <br />
         <input
           value={first}
+          ref={inputFirstName}
           onChange={(event) => {
             setFirst(event.currentTarget.value);
           }}
@@ -106,6 +113,7 @@ function App() {
         <br />
         <input
           value={last}
+          ref={inputLastName}
           onChange={(event) => {
             setLast(event.currentTarget.value);
           }}
