@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/express-guest-list-api-memory-data-store
 /.pnp
 .pnp.js
 
