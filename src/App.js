@@ -110,7 +110,7 @@ function App() {
             setLast(event.currentTarget.value);
           }}
           onKeyPress={(event) => {
-            setLast(event.currentTarget.value);
+            // setLast(event.currentTarget.value);
             if (event.key === 'Enter') {
               setIsLoading(true);
               setRefetch(!refetch);
