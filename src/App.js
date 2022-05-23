@@ -119,8 +119,10 @@ function App() {
               event.preventDefault();
               setIsLoading(true);
               setRefetch(!refetch);
-              // setFirst('');
-              // setLast('');
+              inputFirstName.current.value = '';
+              setFirst('');
+              inputLastName.current.value = '';
+              setLast('');
 
               createUser(first, last).catch(() => {
                 console.log('fetch fails');
