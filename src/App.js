@@ -47,8 +47,8 @@ function App() {
     });
     const createdGuest = await response.json();
     // console.log(createdGuest);
-    // setFirst('');
-    // setLast('');
+    setFirst('');
+    setLast('');
     setGuest((add) => [...add, createdGuest]);
   }
 
@@ -89,48 +89,44 @@ function App() {
     <h2>Loading...</h2>
   ) : (
     <div>
-      <form name="form">
-        <label htmlFor="first-name">
-          First name
-          <br />
-          <input
-            name="first-name"
-            value={first}
-            onChange={(event) => {
-              setFirst(event.currentTarget.value);
-            }}
-            disabled={disabled}
-          />
-        </label>
-        <label htmlFor="last-name">
-          <br />
-          Last name
-          <br />
-          <input
-            name="last-name"
-            value={last}
-            onChange={(event) => {
-              setLast(event.currentTarget.value);
-            }}
-            onKeyPress={(event) => {
-              // setLast(event.currentTarget.value);
-              if (event.key === 'Enter') {
-                event.preventDefault();
-                setIsLoading(true);
-                setRefetch(!refetch);
-                setFirst('');
-                setLast('');
+      <label>
+        First name
+        <br />
+        <input
+          value={first}
+          onChange={(event) => {
+            setFirst(event.currentTarget.value);
+          }}
+          disabled={disabled}
+        />
+      </label>
+      <label>
+        <br />
+        Last name
+        <br />
+        <input
+          value={last}
+          onChange={(event) => {
+            setLast(event.currentTarget.value);
+          }}
+          onKeyPress={(event) => {
+            // setLast(event.currentTarget.value);
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              setIsLoading(true);
+              setRefetch(!refetch);
+              // setFirst('');
+              // setLast('');
 
-                createUser(first, last).catch(() => {
-                  console.log('fetch fails');
-                });
-                document.form.reset();
-              }
-            }}
-            disabled={disabled}
-          />
-        </label>
-      </form>
+              createUser(first, last).catch(() => {
+                console.log('fetch fails');
+              });
+            }
+          }}
+          disabled={disabled}
+        />
+      </label>
+
       <br />
       {/* <button
         onClick={() => {
