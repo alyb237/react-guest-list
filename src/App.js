@@ -46,9 +46,9 @@ function App() {
       }),
     });
     const createdGuest = await response.json();
-    console.log(createdGuest);
-    setFirst('');
-    setLast('');
+    // console.log(createdGuest);
+    // setFirst('');
+    // setLast('');
     setGuest((add) => [...add, createdGuest]);
   }
 
@@ -114,8 +114,8 @@ function App() {
             if (event.key === 'Enter') {
               setIsLoading(true);
               setRefetch(!refetch);
-              setFirst('');
-              setLast('');
+              setFirst(' ');
+              setLast(' ');
               createUser(first, last).catch(() => {
                 console.log('fetch fails');
               });
