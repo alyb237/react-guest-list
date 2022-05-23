@@ -166,7 +166,7 @@ function App() {
                     onClick={() => deleteGuest(guests.id)}
                     aria-label={`Remove ${guests.firstName} ${guests.lastName}`}
                   >
-                    Remove
+                    Remove-Guest
                   </button>
                 </li>
               </div>
