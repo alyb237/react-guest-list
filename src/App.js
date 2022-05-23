@@ -124,7 +124,7 @@ function App() {
       </label>
 
       <br />
-      <button
+      {/* <button
         onClick={() => {
           createUser(first, last).catch(() => {
             console.error('fetch fails');
@@ -133,7 +133,7 @@ function App() {
         disabled={disabled}
       >
         Add guest
-      </button>
+      </button> */}
 
       <div data-test-id="guest">
         <ul>
@@ -162,6 +162,7 @@ function App() {
                     {guests.attending ? '✔' : '⛔'}
                   </label>
                   <br />
+                  Remove
                   <button onClick={() => deleteGuest(guests.id)}>Remove</button>
                 </li>
               </div>
