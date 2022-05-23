@@ -50,12 +50,11 @@ function App() {
     });
     const createdGuest = await response.json();
     // console.log(createdGuest);
-
+    setGuest((add) => [...add, createdGuest]);
     inputFirstName.current.value = '';
     setFirst('');
     inputLastName.current.value = '';
     setLast('');
-    setGuest((add) => [...add, createdGuest]);
   }
 
   // Update attendance
@@ -87,9 +86,6 @@ function App() {
     setGuest(() => guest.filter((guests) => guests.id !== id));
     // console.log(setGuest);
   }
-  // if (isLoading) {
-  //   return <h2>loading...</h2>;
-  // }
 
   return isLoading ? (
     <h2>Loading...</h2>
