@@ -135,7 +135,7 @@ function App() {
         Add guest
       </button> */}
 
-      <div data-test-id="guest">
+      <div>
         <ul>
           {guest.map((guests) => {
             return (
