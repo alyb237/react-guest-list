@@ -75,17 +75,19 @@ function App() {
       method: 'DELETE',
     });
     const deleteAGuest = await response.json();
-    // console.log(deleteAGuest);
+    console.log(deleteAGuest);
     setRefetch(!refetch);
     // setAttending(!attending);
     setGuest(() => guest.filter((guests) => guests.id !== id));
     // console.log(setGuest);
   }
-  if (isLoading) {
-    return <h2>loading...</h2>;
-  }
+  // if (isLoading) {
+  //   return <h2>loading...</h2>;
+  // }
 
-  return (
+  return isLoading ? (
+    <h2>loading...</h2>
+  ) : (
     <div data-test-id="guest">
       <label>
         First name
@@ -127,6 +129,7 @@ function App() {
             console.error('fetch fails');
           });
         }}
+        disabled={disabled}
       >
         Add guest
       </button>
