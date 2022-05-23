@@ -162,7 +162,7 @@ function App() {
                     {guests.attending ? '✔' : '⛔'}
                   </label>
                   <button
-                    aria-label="Remove"
+                    aria-label={`Remove ${guests.firstName} ${guests.lastName}`}
                     onClick={() => deleteGuest(guests.id)}
                   >
                     Delete
