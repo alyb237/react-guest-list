@@ -88,7 +88,7 @@ function App() {
   return isLoading ? (
     <h2>Loading...</h2>
   ) : (
-    <div data-test-id="guest">
+    <div>
       <label>
         First name
         <br />
@@ -139,7 +139,7 @@ function App() {
         <ul>
           {guest.map((guests) => {
             return (
-              <div key={guests.id}>
+              <div key={guests.id} data-test-id="guest">
                 <li>
                   {guests.firstName} {guests.lastName}
                   <label>
